@@ -1,8 +1,7 @@
 <template>
   <div class="box">
       <h1>{{msg}}</h1>
-      <img src="../../assects/img/3.jpg" alt="">
-
+      <img src="../../assects/img/1.jpg" alt="">
   </div>
 </template>
 
@@ -10,7 +9,7 @@
 export default{
     data(){
         return{
-            msg:"这是注册页面"
+            msg:"这是数据管理系统"
         }
     }
 }
@@ -20,6 +19,9 @@ export default{
         background: #333222;
         color:#fff;
         font-size:20px;
+    }
+    ul{
+
     }
 </style>
 
