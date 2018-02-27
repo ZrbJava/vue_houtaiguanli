@@ -1,0 +1,10 @@
+#忽略node_modules文件夹中的第三方库文件
+node_modules
+#忽略打包后生成的dist文件夹目录
+dist
+#忽略所有隐藏文件
+.*
+#不忽略babelrc这个配置文件
+!.babelrc
+#！不忽略gitignore
+!.gitignore
