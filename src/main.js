@@ -2,9 +2,12 @@ import Vue from "vue";
 import App from "./component/App.vue";
 import vueRouter from "./router/router.js";
 import ElementUi from "element-ui"
+import 'element-ui/lib/theme-chalk/index.css'
 import "normalize.css";
 import axios from "axios";
 import api, { domain } from "./js/api.js";
+import "less";
+import less from "./less/index.less"
 Vue.use(ElementUi);
 
 // 配置默认域名, 这样请求的时候就不用在url里每次手动加域名了

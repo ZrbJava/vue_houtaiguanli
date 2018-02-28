@@ -36,7 +36,7 @@ module.exports={
 
             // 解析图片字体用的, 以后可能需要修改该配置, 以支持更多的文件类型
             {
-                test: /\.(png|jpg|gif|svg)/,
+                test: /\.(png|jpg|gif|svg|ttf|woff)/,
                 use: [{
                     loader: 'url-loader',
                     options: {
