@@ -93,43 +93,40 @@ export default {
     appHeader: Header,
     appAside: Aside
   },
-  data(){
-       return{
-        //   搜索商品的数据定义
-        input: '',
-        // 表格数据配置
-        tableData3: [
-            {
-            date: 'jackie_zhao学院信息',
-            name: '全栈工程师',
-            address: '2018-02-30/admin',
+  data() {
+    return {
+      //   搜索商品的数据定义
+      input: "",
+      // 表格数据配置
+      tableData3: [
+        {
+          date: "jackie_zhao学院信息",
+          name: "全栈工程师",
+          address: "2018-02-30/admin"
         },
         {
-            date: 'jackie_zhao学院信息',
-            name: '全栈工程师',
-            address: '2018-02-30/admin',
+          date: "jackie_zhao学院信息",
+          name: "全栈工程师",
+          address: "2018-02-30/admin"
         },
         {
-            date: 'jackie_zhao学院信息',
-            name: '全栈工程师',
-            address: '2018-02-30/admin',
+          date: "jackie_zhao学院信息",
+          name: "全栈工程师",
+          address: "2018-02-30/admin"
         },
         {
-            date: 'jackie_zhao学院信息',
-            name: '全栈工程师',
-            address: '2018-02-30/admin',
+          date: "jackie_zhao学院信息",
+          name: "全栈工程师",
+          address: "2018-02-30/admin"
         },
         {
-            date: 'jackie_zhao学院信息',
-            name: '全栈工程师',
-            address: '2018-02-30/admin',
-        },
-        
-        ]
-       }
-  },
-
-
+          date: "jackie_zhao学院信息",
+          name: "全栈工程师",
+          address: "2018-02-30/admin"
+        }
+      ]
+    };
+  }
 };
 </script>
 
@@ -154,29 +151,29 @@ export default {
   .el-aside {
     background-color: #267cb7;
   }
-//   按钮部分
-  .button_section{
-      height: 60px;
-      line-height: 60px;
-      border: 1px solid #ccc;
-      border-radius: 15px;
-      padding:0 15px 0 15px;
+  //   按钮部分
+  .button_section {
+    height: 60px;
+    line-height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 0 15px 0 15px;
   }
-  .el-header,.el-main{
-      padding:0;
+  .el-header,
+  .el-main {
+    padding: 0;
   }
-  .el-breadcrumb{
-      height: 40px;
-      line-height: 40px;
-      border-bottom:1px solid #ccc;
-      margin-bottom:20px;
+  .el-breadcrumb {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
   }
-  .el-main{
-      padding:0 20px;
-      
+  .el-main {
+    padding: 0 20px;
   }
   .el-submenu__title:hover {
     background-color: red;
-}
+  }
 }
 </style>
