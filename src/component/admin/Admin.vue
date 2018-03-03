@@ -2,7 +2,7 @@
     <div class="admin">
         <el-container>
                 <!-- 侧边栏公用部分 -->
-            <el-aside width="200px">
+            <el-aside width="200px" style="overflow:hidden">
                 <app-aside></app-aside>
             </el-aside>
         
@@ -13,13 +13,13 @@
                 </el-header>
                 <!-- admin页面内容 -->
                 <el-main>
-                    <el-breadcrumb separator="/">
+                    <!-- <el-breadcrumb separator="/">
                     <el-breadcrumb-item>知识内容</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>内容管理</el-breadcrumb-item>
-                    </el-breadcrumb>
+                    </el-breadcrumb> -->
                     <!-- 按钮部分 -->
-                     <div class="button_section">
+                     <!-- <div class="button_section">
                         <el-row>
                             <el-col :span="20">
                                     <el-button size="small" icon="el-icon-plus">新增</el-button>
@@ -30,9 +30,9 @@
                                 <el-input v-model="input" class="inp_search" placeholder="请输入搜索内容"></el-input>
                             </el-col>
                         </el-row>
-                    </div>
+                    </div> -->
                     <!-- 表格数据 -->
-                    <div class="table_data">
+                    <!-- <div class="table_data">
                             <el-table
                             border
                             ref="multipleTable"
@@ -76,7 +76,9 @@
                         </el-table>
                              
 
-                    </div>
+                    </div> -->
+                    <!-- <app-comment></app-comment> -->
+                     <router-view></router-view>
                 </el-main>
             </el-container>
         </el-container>
@@ -86,12 +88,18 @@
 <script>
 import Header from "./subcom/Header.vue";
 import Aside from "./subcom/Aside.vue";
+import Comment from "./goods/comment/Comment.vue";
+import List from "./goods/list/List.vue";
+
 
 export default {
   // 注册子组件
   components: {
     appHeader: Header,
-    appAside: Aside
+    appAside: Aside,
+    appComment:Comment,
+    list:List,
+
   },
   data() {
     return {

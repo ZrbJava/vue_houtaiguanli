@@ -1,5 +1,5 @@
 // 导出域名
-export const domain = 'http://157.122.54.189:9095';
+export const domain = 'http://localhost:8899';
 
 // 默认导出整个接口配置
 export default {
@@ -27,7 +27,7 @@ export default {
     atFile: `/admin/article/uploadfile`,                    // 上传文章附件
 
     // 商品管理
-    gsList: `/admin/goods/getlist/`,                       // 获取商品列表, 需要查询: pageIndex 与 pageSize 与 searchvalue
+    gsList: `/admin/goods/getlist`,                       // 获取商品列表, 需要查询: pageIndex 与 pageSize 与 searchvalue
     gsDetail: `/admin/goods/getgoodsmodel/`,    // 获取商品详情, 需要参数: gsID
     gsEdit: `/admin/goods/edit/`,                         // 编辑商品, 需要参数: gsID
     gsAdd: `/admin/goods/add/`,                         // 添加商品
