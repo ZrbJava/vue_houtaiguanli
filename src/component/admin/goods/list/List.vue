@@ -12,8 +12,8 @@
             <el-row>
                 <el-col :span="20">
                         <el-button size="small" icon="el-icon-plus">新增</el-button>
-                        <el-button size="small" icon="el-icon-check">全选</el-button>
-                        <el-button size="small" icon="el-icon-delete" @click="open">删除</el-button>
+                        <el-button size="small" icon="el-icon-check" >全选</el-button>
+                        <el-button size="small" icon="el-icon-delete" @click="del">删除</el-button>
                 </el-col>
                 <el-col :span="4">
                     <el-input v-model="apiQuery.searchvalue" @blur="search" class="inp_search" placeholder="请输入搜索内容"></el-input>
@@ -47,7 +47,16 @@
 
             <el-table-column label="属性" width="120" show-overflow-tooltip>
                 <!-- 注意template要加slot-scope属性 -->
-                <template slot-scope="scope">里面是三个图标</template>
+                 <template slot-scope="scope">
+                    <!-- 轮播图: is_slide -->
+                    <span :class="['el-icon-picture-outline', scope.row.is_slide == 1? 'active': '']"></span>
+
+                    <!-- 指定: is_top -->
+                    <span :class="['el-icon-upload2', scope.row.is_top == 1? 'active': '']"></span>
+
+                    <!-- 推荐: is_hot -->
+                    <span :class="['el-icon-star-off', scope.row.is_hot == 1? 'active': '']"></span>
+                </template>
             </el-table-column>
 
             <el-table-column label="操作" width="120" show-overflow-tooltip>
@@ -57,14 +66,14 @@
             </el-table-column>
         </el-table>
 
-        <!-- 分页 -->
-          <el-pagination
-          style="margin-top:20px;"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="400">
-          </el-pagination>
+              <!-- 分页 -->
+        <!-- total用来设定数据总数, current-page用来设定当前页, page-size用来设定当前每页数量  -->
+        <el-pagination :total="apiQuery.total" :current-page="apiQuery.pageIndex" :page-size="apiQuery.pageSize"
+             background
+            :page-sizes="[2, 4, 6, 8]" 
+            @size-change="handleSizeChange" @current-change="handleCurrentChange"
+            layout="total, sizes, prev, pager, next, jumper">
+        </el-pagination>
     </div>
 </template>
 
@@ -76,7 +85,8 @@
                 apiQuery: {
                     pageIndex: 1,
                     pageSize: 10,
-                    searchvalue: ''
+                    searchvalue: '',
+                    total: 0
                 },
                 tableData3: [
                     {
@@ -108,22 +118,12 @@
                     if(res.data.status == 0) {
                       console.log(res);                                        
                         this.tableData3 = res.data.message;  // 把请求回来的数据覆盖原data数量, 表格就会自动刷新
+                         this.apiQuery.total = res.data.totalcount;//获取总页数
                     }
                 });
             },
             // 点击删除按钮将被选中的数据删除
             del() {
-                let delIDS = this.selectedGoodsList.map(v => v.id); // 提取所有被选商品的id
-                this.$http.get(this.$api.gsDel + delIDS).then((res) => {
-                    // 删除成功后重新获取数据进行渲染
-                    if(res.data.status == 0) {
-                        // console.log(res);
-                        this.$message(res.data.message);
-                        this.getGoodsData();
-                    }
-                })
-            },
-            open() {
                 this.$confirm('此操作将永久删除该文件, 是否继续?', '警告', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -150,8 +150,6 @@
                 });
             },
 
-            
-            
             toggleSelection(rows) {
                 if (rows) {
                     rows.forEach(row => {
@@ -164,13 +162,26 @@
 
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-            }
-        },
+            },
+                // 监听页码变更事件
+            handleCurrentChange(page) {
+                this.apiQuery.pageIndex = page; // 接收到新的页面, 赋值给data里的数量, 分页组件就会刷新视图
+                this.getGoodsData();  // 除了分页组件视图要变更, 表格也要重新获取数据渲染
+            },
 
+            // 监听每页数量变更事件
+            handleSizeChange(size) {
+                this.apiQuery.pageSize = size; // 接收到新的每页数量, 赋值给data里的数量, 分页组件就会刷新视图
+                this.getGoodsData();  // 除了分页组件视图要变更, 表格也要重新获取数据渲染
+            },
+
+        },
+       
         // 页面一上来就自动调用接口获取表格数据进行展示
         created() {
             this.getGoodsData();
         }
+
     }
 </script>
 
