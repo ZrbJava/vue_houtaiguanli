@@ -13,7 +13,7 @@
                 <el-col :span="20">
                         <el-button size="small" icon="el-icon-plus">新增</el-button>
                         <el-button size="small" icon="el-icon-check">全选</el-button>
-                        <el-button size="small" icon="el-icon-delete">删除</el-button>
+                        <el-button size="small" icon="el-icon-delete" @click="open">删除</el-button>
                 </el-col>
                 <el-col :span="4">
                     <el-input v-model="apiQuery.searchvalue" @blur="search" class="inp_search" placeholder="请输入搜索内容"></el-input>
@@ -22,7 +22,7 @@
         </div>
         <!-- 大表格 -->
         <!-- data属性用来配置表格数据  -->
-        <el-table border height="350"  ref="multipleTable" :data="tableData3" style="width: 100%">
+        <el-table border height="350"  @selection-change="change" ref="multipleTable" :data="tableData3" style="width: 100%">
             
             <!-- type为selection, 即多选框 -->
             <el-table-column type="selection" width="55"></el-table-column>
@@ -86,9 +86,16 @@
                     },
                 ],
                 multipleSelection: [],
+                // 被选中的商品数据
+                selectedGoodsList: [],
             }
         },
         methods: {
+            // 当选择项发生变化时会触发该事件
+            change(selection){
+                console.log(selection);
+                 this.selectedGoodsList = selection;
+            },
             // 搜索
             search() {
                 this.getGoodsData();
@@ -104,6 +111,46 @@
                     }
                 });
             },
+            // 点击删除按钮将被选中的数据删除
+            del() {
+                let delIDS = this.selectedGoodsList.map(v => v.id); // 提取所有被选商品的id
+                this.$http.get(this.$api.gsDel + delIDS).then((res) => {
+                    // 删除成功后重新获取数据进行渲染
+                    if(res.data.status == 0) {
+                        // console.log(res);
+                        this.$message(res.data.message);
+                        this.getGoodsData();
+                    }
+                })
+            },
+            open() {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '警告', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    // 点击确定之后执行删除操作
+                    let delIDS = this.selectedGoodsList.map(v => v.id); // 提取所有被选商品的id
+                    this.$http.get(this.$api.gsDel + delIDS).then((res) => {
+                        // 删除成功后重新获取数据进行渲染
+                        if(res.data.status == 0) {
+                            // console.log(res);
+                            this.$message({
+                                type: 'success',
+                                message: res.data.message,
+                            });
+                            this.getGoodsData();
+                        }
+                    })
+                    }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+
+            
             
             toggleSelection(rows) {
                 if (rows) {
